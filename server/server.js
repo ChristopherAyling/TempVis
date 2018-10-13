@@ -26,8 +26,11 @@ app.prepare()
         })
 
         server.get('/newTemps', (req, res) => {
-            let data = {}
+            let data = [
+                {time: '8:00', c0: Math.random()*30+10, c1: Math.random()*30+10, c2: Math.random()*30+10, c3: Math.random()*30+10, c4: Math.random()*30+10},
+            ]
             io.sockets.emit('update', data)
+            res.json({ status: "ok" })
         })
 
         // ======

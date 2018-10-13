@@ -27,6 +27,13 @@ class Index extends React.Component {
         socket.on('hello_world', (data) => {
             console.log(data);
         })
+
+        socket.on('update', (data) => {
+            console.log(data)
+            this.setState(prevState => ({
+                data: [...prevState.data, ...data]
+            }))
+        })
     }
 
   render() {
