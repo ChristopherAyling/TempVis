@@ -8,6 +8,14 @@ const app = next({
 	dev
 });
 
+const sendSMS = (message) => {
+    // stuff here
+}
+
+let lastSMS = null
+
+const thresh = 100
+
 const handle = app.getRequestHandler();
 
 app.prepare()
@@ -20,17 +28,16 @@ app.prepare()
 
         // ====== Our Routes Here
 
-        server.get('/hook', (req, res) => {
-            io.sockets.emit('hello_world', 'hello, world')
-            res.json({ status: "ok" })
-        })
-
         server.get('/newTemps', (req, res) => {
             let data = [
-                {time: '8:00', c0: Math.random()*30+10, c1: Math.random()*30+10, c2: Math.random()*30+10, c3: Math.random()*30+10, c4: Math.random()*30+10},
+                {time: 8, c0: Math.random()*30+10, c1: Math.random()*30+10, c2: Math.random()*30+10, c3: Math.random()*30+10, c4: Math.random()*30+10},
             ]
             io.sockets.emit('update', data)
             res.json({ status: "ok" })
+
+            if ((data > thresh)) {
+                sendSMS("the data is over the threshold")
+            }
         })
 
         // ======

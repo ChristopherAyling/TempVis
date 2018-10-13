@@ -1,16 +1,19 @@
 import Layout from '../components/layout';
 import io from 'socket.io-client'
 import { LineChart, Line, CartesianGrid, XAxis, YAxis, ResponsiveContainer } from 'recharts';
+import regression from 'regression'
 
 const dataToLoad = [
-  {time: '1:00', c0: 40, c1: 30, c2: 15, c3: 45, c4: 25},
-  {time: '2:00', c0: 30, c1: 40, c2: 24, c3: 50, c4: 16},
-  {time: '3:00', c0: 20, c1: 27, c2: 18, c3: 30, c4: 19},
-  {time: '4:00', c0: 27, c1: 40, c2: 30, c3: 35, c4: 22},
-  {time: '5:00', c0: 18, c1: 50, c2: 24, c3: 22, c4: 24},
-  {time: '6:00', c0: 23, c1: 18, c2: 18, c3: 30, c4: 28},
-  {time: '7:00', c0: 34, c1: 22, c2: 16, c3: 32, c4: 33}
+  {time: 1, c0: 40, c1: 30, c2: 15, c3: 45, c4: 25},
+  {time: 2, c0: 30, c1: 40, c2: 24, c3: 50, c4: 16},
+  {time: 3, c0: 20, c1: 27, c2: 18, c3: 30, c4: 19},
+  {time: 4, c0: 27, c1: 40, c2: 30, c3: 35, c4: 22},
+  {time: 5, c0: 18, c1: 50, c2: 24, c3: 22, c4: 24},
+  {time: 6, c0: 23, c1: 18, c2: 18, c3: 30, c4: 28},
+  {time: 7, c0: 34, c1: 22, c2: 16, c3: 32, c4: 33}
 ];
+
+const getKeysValues = (key, data) => data.map(row => [row['time'], row[key]]) 
 
 class Index extends React.Component {
 
@@ -18,21 +21,24 @@ class Index extends React.Component {
     super(props)
     this.state = {
       data: dataToLoad,
+      predicted: null,
       socket: null
     };
   }
 
     componentDidMount = () => {
         const socket = io("localhost:3000")
-        socket.on('hello_world', (data) => {
-            console.log(data);
-        })
 
         socket.on('update', (data) => {
-            console.log(data)
             this.setState(prevState => ({
                 data: [...prevState.data, ...data]
             }))
+            // this.state.data[0].
+            let train = getKeysValues('c0', this.state.data)
+            console.log(train)
+            let result = regression.linear(train)
+            console.log(result)
+            console.log(result.predict(8))
         })
     }
 
