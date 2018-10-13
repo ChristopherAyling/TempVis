@@ -21,7 +21,7 @@ app.prepare()
         // ====== Our Routes Here
 
         server.get('/hook', (req, res) => {
-            io.sockets.emit('hello_world', 'hello, world') 
+            io.sockets.emit('hello_world', 'hello, world')
             res.json({ status: "ok" })
         })
 
