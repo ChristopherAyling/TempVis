@@ -48,11 +48,11 @@ class Index extends React.Component {
                 <stop offset="100%" stopColor="#42a5f5" />
               </linearGradient>
             </defs>
-            <Line type="monotone" dataKey="c0" stroke="url(#colorC)" strokeWidth={3} isAnimationActive={false}/>
-            <Line type="monotone" dataKey="c1" stroke="url(#colorC)" strokeWidth={3} isAnimationActive={false}/>
-            <Line type="monotone" dataKey="c2" stroke="url(#colorC)" strokeWidth={3} isAnimationActive={false}/>
-            <Line type="monotone" dataKey="c3" stroke="url(#colorC)" strokeWidth={3} isAnimationActive={false}/>
-            <Line type="monotone" dataKey="c4" stroke="url(#colorC)" strokeWidth={3} isAnimationActive={false}/>
+            <Line type="monotone" dataKey="c0" stroke="url(#colorC)" strokeWidth={3} isAnimationActive={true}/>
+            <Line type="monotone" dataKey="c1" stroke="url(#colorC)" strokeWidth={3} isAnimationActive={true}/>
+            <Line type="monotone" dataKey="c2" stroke="url(#colorC)" strokeWidth={3} isAnimationActive={true}/>
+            <Line type="monotone" dataKey="c3" stroke="url(#colorC)" strokeWidth={3} isAnimationActive={true}/>
+            <Line type="monotone" dataKey="c4" stroke="url(#colorC)" strokeWidth={3} isAnimationActive={true}/>
             <XAxis dataKey="time" />
             <YAxis domain={[10, 50]} />
           </LineChart>  
