@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import Layout from '../components/layout';
 import { LineChart, Line, CartesianGrid, XAxis, YAxis, ResponsiveContainer } from 'recharts';
 
@@ -29,6 +30,28 @@ class Index extends React.Component {
       <Layout>
         <h1>Temperature</h1>
         <ResponsiveContainer width='100%' aspect={3.0/2.0}>
+=======
+import Layout from '../components/layout'
+import io from 'socket.io-client'
+
+class Index extends React.Component {
+
+    constructor(props) {
+        super(props)
+        this.state = {
+            socket: null
+        }
+    }
+
+    componentDidMount = () => {
+        const socket = io("localhost:3000")
+        socket.on('hello_world', (data) => {
+            console.log(data);
+
+        })
+        this.setState()
+    }
+>>>>>>> 34a1a264eb8c97eab907f439215750211ed264d4
 
           <LineChart height={300} data={this.state.data}>
             <defs>
