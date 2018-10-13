@@ -1,9 +1,22 @@
 import Layout from '../components/layout'
 
-const Index = () => (
-    <Layout>
-        Hello I am temperature
-    </Layout>
-)
+class Index extends React.Component {
+
+    constructor(props) {
+        super(props)
+    }
+
+    componentDidMount = () => {
+
+    }
+
+    render() {
+        return (
+            <Layout>
+                Hello I am temperature
+            </Layout>
+        )
+    }
+}
 
 export default Index
