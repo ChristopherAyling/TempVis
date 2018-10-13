@@ -16,7 +16,6 @@ app.prepare()
         const server2 = require('http').createServer(server)
         const io = require('socket.io')(server2)
 
-
 		server.use(express.static('public')) // serve static files
 
         // ====== Our Routes Here
@@ -24,6 +23,11 @@ app.prepare()
         server.get('/hook', (req, res) => {
             io.sockets.emit('hello_world', 'hello, world') 
             res.json({ status: "ok" })
+        })
+
+        server.get('/newTemps', (req, res) => {
+            let data = {}
+            io.sockets.emit('update', data)
         })
 
         // ======
