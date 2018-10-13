@@ -1,0 +1,25 @@
+{
+  "name": "tempvis",
+  "version": "1.0.0",
+  "description": "lol",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ChristopherAyling/TempVis.git"
+  },
+  "keywords": [
+    "\"blockchain\"",
+    "\"machine",
+    "learning\"",
+    "\"IoT\""
+  ],
+  "author": "us",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ChristopherAyling/TempVis/issues"
+  },
+  "homepage": "https://github.com/ChristopherAyling/TempVis#readme"
+}
