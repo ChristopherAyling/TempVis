@@ -1,7 +1,9 @@
+import Layout from '../components/layout'
+
 const Index = () => (
-    <div>
+    <Layout>
         Hello I am temperature
-    </div>
+    </Layout>
 )
 
 export default Index
