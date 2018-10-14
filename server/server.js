@@ -10,10 +10,10 @@ const app = next({
 });
 
 const sendSMS = (message) => {
-    console.log("messaging...")
-    const api_key = "3f35dc39"
-    const api_secret = "b6a87798ae15ef870dad9d94e7040e76"
-    const phone_number = "61401842463"
+    //console.log("messaging...")
+    const api_key = "your_api_key"
+    const api_secret = "your_api_secret"
+    const phone_number = "your_number_here"
 
     const method = "POST"
     const params = "?api_secret="+api_secret
@@ -27,7 +27,7 @@ const sendSMS = (message) => {
         body: payload,
     })
     .then(response => {
-        console.log(response.json());
+        //console.log(response.json());
     })
 }
 
@@ -52,8 +52,8 @@ app.prepare()
         // ====== Our Routes Here
 
         server.all('/newTemps', (req, res) => {
-		console.log(req)
-console.log(req.body)
+		//console.log(req)
+        //console.log(req.body)
             let data = [
                 // {time: 4, c0: Math.random()*30+10, c1: Math.random()*30+10, c2: Math.random()*30+10, c3: Math.random()*30+10, c4: Math.random()*30+10},
                 {time: step, c0: parseFloat(req.query.temp)}
@@ -61,11 +61,11 @@ console.log(req.body)
             step++
             io.sockets.emit('update', data)
             res.json({ status: "ok" })
-            if (data[0]["c0"] > thresh && oldTemp < thresh) {
-                sendSMS("the temperature is over the threshold ("+thresh+"°C)")
-            } else if (data[0]["c0"] < thresh && oldTemp > thresh) {
-                sendSMS("the temperature is now below the threshold ("+thresh+"°C)")  
-            }
+            // if (data[0]["c0"] > thresh && oldTemp < thresh) {
+            //     sendSMS("the temperature is over the threshold ("+thresh+"°C)")
+            // } else if (data[0]["c0"] < thresh && oldTemp > thresh) {
+            //     sendSMS("the temperature is now below the threshold ("+thresh+"°C)")  
+            // }
             oldTemp = data[0]["c0"]
         })
 
