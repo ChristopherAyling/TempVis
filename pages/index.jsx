@@ -93,7 +93,7 @@ class Index extends React.Component {
               ]
               console.log(prediction);
               return {
-                data: newData,
+                data: train.slice(Math.max(train.length - 3, 1)),
                 prediction: prediction
               }
             })
