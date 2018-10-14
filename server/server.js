@@ -1,5 +1,6 @@
 const express = require('express');
 const next = require('next');
+const fetch = require('node-fetch');
 
 const port = parseInt(process.env.PORT, 10) || 3000;
 const dev = process.env.NODE_ENV !== 'production';
@@ -18,6 +19,8 @@ const thresh = 100
 
 const handle = app.getRequestHandler();
 
+let step = 1
+
 app.prepare()
 	.then(() => {
         const server = express();
@@ -30,8 +33,10 @@ app.prepare()
 
         server.get('/newTemps', (req, res) => {
             let data = [
-                {time: 8, c0: Math.random()*30+10, c1: Math.random()*30+10, c2: Math.random()*30+10, c3: Math.random()*30+10, c4: Math.random()*30+10},
+                // {time: 4, c0: Math.random()*30+10, c1: Math.random()*30+10, c2: Math.random()*30+10, c3: Math.random()*30+10, c4: Math.random()*30+10},
+                {time: step, c0: Math.random()*30+10}
             ]
+            step++
             io.sockets.emit('update', data)
             res.json({ status: "ok" })
 
