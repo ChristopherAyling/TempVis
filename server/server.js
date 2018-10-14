@@ -33,7 +33,7 @@ const sendSMS = (message) => {
 
 let lastSMS = null
 
-const thresh = 20
+const thresh = 50
 
 const handle = app.getRequestHandler();
 
