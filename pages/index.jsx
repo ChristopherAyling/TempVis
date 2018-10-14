@@ -39,8 +39,11 @@ class Predictor {
     for (var i=0; i<this.x.length; i++) {
       train[i] = [this.x[i], this.y[i]]
     }
+    if (train.length > 3) {
+      train = train.slice(Math.max(train.length - 3, 1))
+    }
     console.log("train"+train)
-    let regressor = regression.polynomial(train, {order: 3})
+    let regressor = regression.linear(train, {order: 3})
     let pred = regressor.predict(this.x[this.x.length-1]+1)
     console.log("pred"+pred)
     return pred
@@ -77,19 +80,21 @@ class Index extends React.Component {
   }
 
     componentDidMount = () => {
-        const socket = io("localhost:3000")
+        const socket = io("/")
 
         socket.on('update', (data) => {
             this.setState(prevState => {
               let newData = [...prevState.data, ...data]
               let predictor = new Predictor(getKeysValues('c0', newData))
-            
+              let pred = predictor.predictNext()
+              let prediction = [
+                Object.assign({}, newData[newData.length-1], {c0p: newData[newData.length-1]['c0']}),
+                {time: newData[newData.length-1]['time']+1, c0p: pred[1]}
+              ]
+              console.log(prediction);
               return {
                 data: newData,
-                prediction: [
-                  Object.assign({}, newData[newData.length-1], {c0p: newData[newData.length-1]['c0']}),
-                  {time: newData[newData.length-1]['time'], c0p: 30}
-                ]
+                prediction: prediction
               }
             })
 
