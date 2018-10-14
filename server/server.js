@@ -10,16 +10,16 @@ const app = next({
 });
 
 const sendSMS = (message) => {
+    console.log("messaging...")
     const api_key = "3f35dc39"
     const api_secret = "b6a87798ae15ef870dad9d94e7040e76"
     const phone_number = "61401842463"
-    const num_dict = {"61401842463":"Kai", "61490201227":"Noah"}
 
     const method = "POST"
     const params = "?api_secret="+api_secret
     const url = "https://api.apidaze.io/"+api_key+"/sms/send"+params
     const headers = {'Content-Type': 'application/x-www-form-urlencoded'}
-    const payload = message.split(" ").join("%20")
+    const payload = "number="+phone_number+"&subject=tempCheck&body="+message.replace(/ /g,"%20")
 
     fetch(url, {
         method: method,
@@ -33,11 +33,13 @@ const sendSMS = (message) => {
 
 let lastSMS = null
 
-const thresh = 35
+const thresh = 20
 
 const handle = app.getRequestHandler();
 
 let step = 1
+
+let oldTemp = thresh
 
 app.prepare()
 	.then(() => {
@@ -57,10 +59,12 @@ app.prepare()
             step++
             io.sockets.emit('update', data)
             res.json({ status: "ok" })
-
-            if ((data > thresh)) {
-                sendSMS("the data is over the threshold")
+            if (data[0]["c0"] > thresh && oldTemp < thresh) {
+                sendSMS("the temperature is over the threshold ("+thresh+"°C)")
+            } else if (data[0]["c0"] < thresh && oldTemp > thresh) {
+                sendSMS("the temperature is now below the threshold ("+thresh+"°C)")  
             }
+            oldTemp = data[0]["c0"]
         })
 
         // ======
