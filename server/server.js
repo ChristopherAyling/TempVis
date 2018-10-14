@@ -49,7 +49,7 @@ app.prepare()
 
         // ====== Our Routes Here
 
-        server.get('/newTemps', (req, res) => {
+        server.all('/newTemps', (req, res) => {
             let data = [
                 // {time: 4, c0: Math.random()*30+10, c1: Math.random()*30+10, c2: Math.random()*30+10, c3: Math.random()*30+10, c4: Math.random()*30+10},
                 {time: step, c0: Math.random()*30+10}
